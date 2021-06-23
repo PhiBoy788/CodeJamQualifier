@@ -10,3 +10,48 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     :return: A table representing the rows passed in.
     """
     ...
+    longest_object = longest_item(rows)
+    if labels:
+        longest_label = longest_item(labels)
+        if longest_label > longest_object:
+            longest_object = longest_label
+
+    #longest_object += 2
+
+    print("┌" + ("─" * (longest_object + 2)) + "┐")
+
+    for column in rows:
+        for item in column:
+            item = str(item)
+            print("|" + " " + item + (" " * (longest_object + 1 - len(item))) + "|")
+    print("└" + ("─" * (longest_object + 2)) + "┘")
+    
+#Counts and returns both the number of rows and columns within a 2D array, respectively.
+#Could use logic if a label is not included to give it a blank value or throw an error?
+def array_counter(row_list):
+    height = len(row_list)
+    width = len(row_list[0])
+    return height, width
+
+#Counts longest item within 2D array, can be used for labels as well.
+def longest_item(row_list):
+    longest = 0
+    for row in row_list:
+        for item in row:
+            item_string = str(item)
+            current = len(item_string)
+            if current > longest:
+                longest = current
+    return longest
+
+#Takes the height and width of the table and prints it accordingly
+#def printer(row_list,height,width,longest):
+    #longest = longest + 2
+    #for row in list
+
+
+#DEBUG CODE
+rows=[["Lemon"],["Sebastiaan"],["KutieKatj"],["Jake"],["Joe"]]
+
+make_table(rows)
+
