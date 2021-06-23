@@ -18,13 +18,16 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
 
     #longest_object += 2
 
-    print("┌" + ("─" * (longest_object + 2)) + "┐")
+    #print("┌" + ("─" * (longest_object + 2)) + "┐")
 
-    for column in rows:
-        for item in column:
-            item = str(item)
-            print("|" + " " + item + (" " * (longest_object + 1 - len(item))) + "|")
-    print("└" + ("─" * (longest_object + 2)) + "┘")
+    for i in range(len(rows)):
+        for j in range(len(rows[i])):
+            item = str(rows[i][j])
+            print("|" + " " + item + (" " * (longest_object + 1 - len(item))), end="")
+        print("|")
+    
+    
+    #print("└" + ("─" * (longest_object + 2)) + "┘")
     
 #Counts and returns both the number of rows and columns within a 2D array, respectively.
 #Could use logic if a label is not included to give it a blank value or throw an error?
@@ -51,7 +54,7 @@ def longest_item(row_list):
 
 
 #DEBUG CODE
-rows=[["Lemon"],["Sebastiaan"],["KutieKatj"],["Jake"],["Joe"]]
+rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
 
 make_table(rows)
 
