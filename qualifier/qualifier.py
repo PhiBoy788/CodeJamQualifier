@@ -1,6 +1,7 @@
 from typing import Any, List, Optional
 import math
 
+
 #TODO CREATE LOGIC FOR CENTERED BOOL
 
 def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, centered: bool = False) -> str:
@@ -12,7 +13,7 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     :return: A table representing the rows passed in.
     """
     ...
-
+    final_table = []
     #Creates an Array of the longest string in both the columns of the given rows list and labels(if given)
     longest_object = longest_item(rows,labels)
 
@@ -24,14 +25,14 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     
     #Prints the top line of the table, spacing characters according 
     #to the length of the longest string in the column
-    print("┌", sep="", end="")
+    final_table.append("┌")
     for i in range(len(longest_object)):
         offset = 2
-        print("─" * (longest_object[i] + 2), end="")
+        final_table.append("─" * (longest_object[i] + 2))
         if i < longest_object[i] and i < len(longest_object) - 1:
-            print("┬", end="", sep="")
+            final_table.append("┬")
             offset += i + i
-    print("┐", sep="")
+    final_table.append("┐\n")
 
     #Prints the middle portion of the table and formats it with or without labels
     for i in range(len(rows)):
@@ -52,27 +53,29 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
                 spacing_right = math.ceil(spacing_right)
 
             if centered == False:
-                print('│' + " " + item + (" " * (longest_object[j] + 1 - item_length)), end="", sep = "")
+                final_table.append('│' + " " + item + (" " * (longest_object[j] + 1 - item_length)))
             else:
-                print('│' + (" " * (spacing_left + 1 - item_left)) + item + (" " * (spacing_right + 1 - item_right)), end="", sep = "")                
-        print('│')
+                final_table.append('│' + (" " * (spacing_left + 1 - item_left)) + item + (" " * (spacing_right + 1 - item_right)))                
+        final_table.append('│\n')
         if labels_bool:
-            print("├", sep = "", end="")
+            final_table.append("├",)
             for i in range(len(longest_object)):
-                print("─" * (longest_object[i] + 2), end="")
+                final_table.append("─" * (longest_object[i] + 2))
                 if i < longest_object[i] and i < len(longest_object) - 1:
-                    print("┼", end="", sep="")
+                    final_table.append("┼")
             labels_bool = False
-            print("┤", sep="")
+            final_table.append("┤\n")
     
     #Prints bottom line of table using similar logic as the top line
     #TODO possible refactor to consolidate into one function? 
-    print("└", sep="", end="")
+    final_table.append("└")
     for i in range(len(longest_object)):
-        print("─" * (longest_object[i] + 2), end="")
+        final_table.append("─" * (longest_object[i] + 2))
         if i < longest_object[i] and i < len(longest_object) - 1:
-            print("┴", end="", sep="")
-    print("┘", sep="")
+            final_table.append("┴")
+    final_table.append("┘\n")
+    finished_table = "".join(final_table)
+    return finished_table
 
 
 #Returns an array with the value of the longest string in each column of a given 2D array
@@ -97,9 +100,10 @@ def longest_item(row_list, labels = None):
 #labels=["User", "Messages", "Role"]
 
 #Centered
-#rows=[["Ducky Yellow", 3],["Ducky Dave", 12],["Ducky Tube", 7],["Ducky Lemon", 1]]
-#labels=["Name", "Duckiness"]
+rows=[["Ducky Yellow", 3],["Ducky Dave", 12],["Ducky Tube", 7],["Ducky Lemon", 1]]
+labels=["Name", "Duckiness"]
 #centered=True
 
 
-#make_table(rows, labels, True)
+table = make_table(rows, labels, True)
+print (table)
