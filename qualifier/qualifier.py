@@ -1,6 +1,5 @@
 from typing import Any, List, Optional
-#TODO FORMAT TABLE WITH CONNECTING CHARACTERS
-    #BUG EXISTS IN FORMATTING CODE FOR LISTS THAT AREN'T 3 LABELS LONG
+
 #TODO CREATE LOGIC FOR CENTERED BOOL
 
 def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, centered: bool = False) -> str:
@@ -12,17 +11,18 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     :return: A table representing the rows passed in.
     """
     ...
+
+    #Creates an Array of the longest string in both the columns of the given rows list and labels(if given)
     longest_object = longest_item(rows,labels)
 
-    print("Longest Object:", longest_object)
+    #Creates a boolean to handle table printing with or without labels.
     if labels:
         labels_bool = True
     else:
         labels_bool = False
     
-    width = sum(longest_object) + 2 + len(rows)
-
-    print("Width = " + str(width))
+    #Prints the top line of the table, spacing characters according 
+    #to the length of the longest string in the column
     print("┌", sep="", end="")
     for i in range(len(longest_object)):
         offset = 2
@@ -32,9 +32,7 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
             offset += i + i
     print("┐", sep="")
 
-
-
-
+    #Prints the middle portion of the table and formats it with or without labels
     for i in range(len(rows)):
         for j in range(len(rows[i])):
             item = str(rows[i][j])
@@ -49,7 +47,8 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
             labels_bool = False
             print("┤", sep="")
     
-    
+    #Prints bottom line of table using similar logic as the top line
+    #TODO possible refactor to consolidate into one function? 
     print("└", sep="", end="")
     for i in range(len(longest_object)):
         print("─" * (longest_object[i] + 2), end="")
@@ -64,29 +63,21 @@ def array_counter(row_list):
     width = len(row_list[0])
     return height, width
 
-#Returns an array with the value of the longest string in each column
+#Returns an array with the value of the longest string in each column of a given 2D array
 def longest_item(row_list, labels = None):
     longest_array = []
     if labels:
         row_list.insert(0,labels)
-    #print(len(row_list))
     for i in range(len(row_list[0])):
         longest = 0
         for j in range(len(row_list)):
             pass
             item_string = str(row_list[j][i])
-            #print(item_string)
             current = len(item_string)
             if current > longest:
                 longest = current
         longest_array.append(longest)
-        #print("Done with Column")
     return longest_array
-
-#Takes the height and width of the table and prints it accordingly
-#def printer(row_list,height,width,longest):
-    #longest = longest + 2
-    #for row in list
 
 
 #DEBUG CODE
