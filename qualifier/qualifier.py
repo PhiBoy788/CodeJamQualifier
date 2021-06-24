@@ -1,4 +1,5 @@
 from typing import Any, List, Optional
+import math
 
 #TODO CREATE LOGIC FOR CENTERED BOOL
 
@@ -36,7 +37,24 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     for i in range(len(rows)):
         for j in range(len(rows[i])):
             item = str(rows[i][j])
-            print('│' + " " + item + (" " * (longest_object[j] + 1 - len(item))), end="", sep = "")
+            item_length = len(item)
+            item_left = item_length / 2
+            item_right = item_length / 2
+            spacing_left = longest_object[j] / 2
+            spacing_right = longest_object[j] / 2
+
+            if type(item_left) is float:
+                item_left = math.floor(item_left)
+                item_right = math.ceil(item_right)
+
+            if type(spacing_left) is float:
+                spacing_left = math.floor(spacing_left)
+                spacing_right = math.ceil(spacing_right)
+
+            if centered == False:
+                print('│' + " " + item + (" " * (longest_object[j] + 1 - item_length)), end="", sep = "")
+            else:
+                print('│' + (" " * (spacing_left + 1 - item_left)) + item + (" " * (spacing_right + 1 - item_right)), end="", sep = "")                
         print('│')
         if labels_bool:
             print("├", sep = "", end="")
@@ -55,13 +73,7 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
         if i < longest_object[i] and i < len(longest_object) - 1:
             print("┴", end="", sep="")
     print("┘", sep="")
-    
-#Counts and returns both the number of rows and columns within a 2D array, respectively.
-#Could use logic if a label is not included to give it a blank value or throw an error?
-def array_counter(row_list):
-    height = len(row_list)
-    width = len(row_list[0])
-    return height, width
+
 
 #Returns an array with the value of the longest string in each column of a given 2D array
 def longest_item(row_list, labels = None):
@@ -81,8 +93,13 @@ def longest_item(row_list, labels = None):
 
 
 #DEBUG CODE
-rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
-labels=["User", "Messages", "Role"]
+#rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
+#labels=["User", "Messages", "Role"]
+
+#Centered
+#rows=[["Ducky Yellow", 3],["Ducky Dave", 12],["Ducky Tube", 7],["Ducky Lemon", 1]]
+#labels=["Name", "Duckiness"]
+#centered=True
 
 
-make_table(rows, labels)
+#make_table(rows, labels, True)
