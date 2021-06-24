@@ -13,14 +13,22 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     ...
     longest_object = longest_item(rows,labels)
 
-    #longest_object += 2
+    print("Longest Object:", longest_object)
     if labels:
         labels_bool = True
     
     width = sum(longest_object) + 2 + len(rows)
 
     print("Width = " + str(width))
-    print("┌" + ("─" * width) + "┐", sep="")
+    print("┌", sep="", end="")
+    for i in range(len(longest_object)):
+        print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
+        if i < 2:
+            print("┬", end="", sep="")
+    print("┐", sep="")
+
+
+
 
     for i in range(len(rows)):
         for j in range(len(rows[i])):
@@ -28,11 +36,21 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
             print('│' + " " + item + (" " * (longest_object[j] + 1 - len(item))), end="", sep = "")
         print('│')
         if labels_bool:
-            print("├","─" * (width), "┤", sep = "")
+            print("├", sep = "", end="")
+            for i in range(len(longest_object)):
+                print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
+                if i < 2:
+                    print("┼", end="", sep="")
             labels_bool = False
+            print("┤", sep="")
     
     
-    print("└" + ("─" * width) + "┘", sep="")
+    print("└", sep="", end="")
+    for i in range(len(longest_object)):
+        print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
+        if i < 2:
+            print("┴", end="", sep="")
+    print("┘", sep="")
     
 #Counts and returns both the number of rows and columns within a 2D array, respectively.
 #Could use logic if a label is not included to give it a blank value or throw an error?
