@@ -1,5 +1,6 @@
 from typing import Any, List, Optional
 #TODO FORMAT TABLE WITH CONNECTING CHARACTERS
+    #BUG EXISTS IN FORMATTING CODE FOR LISTS THAT AREN'T 3 LABELS LONG
 #TODO CREATE LOGIC FOR CENTERED BOOL
 
 def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, centered: bool = False) -> str:
@@ -16,15 +17,19 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     print("Longest Object:", longest_object)
     if labels:
         labels_bool = True
+    else:
+        labels_bool = False
     
     width = sum(longest_object) + 2 + len(rows)
 
     print("Width = " + str(width))
     print("┌", sep="", end="")
     for i in range(len(longest_object)):
-        print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
-        if i < 2:
+        offset = 2
+        print("─" * (longest_object[i] + 2), end="")
+        if i < longest_object[i] and i < len(longest_object) - 1:
             print("┬", end="", sep="")
+            offset += i + i
     print("┐", sep="")
 
 
@@ -38,8 +43,8 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
         if labels_bool:
             print("├", sep = "", end="")
             for i in range(len(longest_object)):
-                print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
-                if i < 2:
+                print("─" * (longest_object[i] + 2), end="")
+                if i < longest_object[i] and i < len(longest_object) - 1:
                     print("┼", end="", sep="")
             labels_bool = False
             print("┤", sep="")
@@ -47,8 +52,8 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     
     print("└", sep="", end="")
     for i in range(len(longest_object)):
-        print("─" * ((longest_object[i] + len(rows[i]) - 1)), end="")
-        if i < 2:
+        print("─" * (longest_object[i] + 2), end="")
+        if i < longest_object[i] and i < len(longest_object) - 1:
             print("┴", end="", sep="")
     print("┘", sep="")
     
