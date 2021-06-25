@@ -36,6 +36,7 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     #Prints the middle portion of the table and formats it with or without labels
     for i in range(len(new_rows_list)):
         for j in range(len(new_rows_list[i])):
+            print("".join(final_table))
             item = str(new_rows_list[i][j])
             item_length = len(item)
             item_left = item_length / 2
@@ -60,7 +61,7 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
             final_table.append("├",)
             for i in range(len(longest_object)):
                 final_table.append("─" * (longest_object[i] + 2))
-                if i < longest_object[i] and i < len(longest_object) - 1:
+                if i < len(longest_object) - 1:
                     final_table.append("┼")
             labels_bool = False
             final_table.append("┤\n")
@@ -96,6 +97,9 @@ def longest_item(row_list, labels = None):
         print(new_list)
     else:
         new_list = row_list
+    new_list = stringifier(new_list)
+    print("Stringed List")
+    print(new_list)
     for i in range(len(new_list[0])):
         longest = 0
         for j in range(len(new_list)):
@@ -108,7 +112,16 @@ def longest_item(row_list, labels = None):
     print(longest_array)
     return longest_array, new_list
 
-
+def stringifier(labels_and_rows):
+    stringified_list = []
+    for i in range(len(labels_and_rows)):
+        inside_list = []
+        for j in range(len(labels_and_rows[i])):
+            #print(len(labels_and_rows[i]))
+            stringified_item = str(labels_and_rows[i][j])
+            inside_list.append(stringified_item)
+        stringified_list.append(inside_list)
+    return stringified_list
 #DEBUG CODE
 #rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
 #labels=["User", "Messages", "Role"]
@@ -117,13 +130,14 @@ def longest_item(row_list, labels = None):
 #rows=[["Apple", 5, 70]]
 #labels=["Name", "Duckiness"]
 #centered=True
-rows=[
-                    ["Apple", 5, 70, "Red"],
-                    ["Banana", 3, 5, "Yellow"],
-                    ["Cherry", 7, 31, "Red"],
-                    ["Pear", 6, 50, "Green"]
-                ]
-labels=["Fruit", "Tastiness", "Sweetness", "Colour"]
+#rows=[["Apple", 5, 70, "Red"],["Banana", 3, 5, "Yellow"],["Cherry", 7, 31, "Red"],["Pear", 6, 50, "Green"]]
+#labels=["Fruit", "Tastiness", "Sweetness", "Colour"]
 
-table = make_table(rows,labels)
+
+rows=[[None, 1, 2.5, None, 32j, '123']]
+labels=[3, None, 12, "A", 12.6, 12j]
+centered=True
+
+
+table = make_table(rows,labels, True)
 print (table)
