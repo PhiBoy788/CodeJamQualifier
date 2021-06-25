@@ -2,7 +2,6 @@ from typing import Any, List, Optional
 import math
 
 
-#TODO fix error with ints not being processed properly. 
 
 def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, centered: bool = False) -> str:
     """
@@ -87,9 +86,11 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
 def longest_item(row_list, labels = None):
     longest_array = []
     new_list = []
+    print('ROW LIST')
+    print(row_list)
     if labels:
-        for row in row_list:
-            new_list.insert(-1,row)
+        for i in range (len(row_list)):
+            new_list.insert(i,row_list[i])
         new_list.insert(0,labels)
         print("NEW LIST")
         print(new_list)
@@ -109,14 +110,20 @@ def longest_item(row_list, labels = None):
 
 
 #DEBUG CODE
-rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
-labels=["User", "Messages", "Role"]
+#rows=[["Lemon", 18_3285, "Owner"],["Sebastiaan", 18_3285.1, "Owner"],["KutieKatj", 15_000, "Admin"],["Jake", "MoreThanU", "Helper"],["Joe", -12, "Idk Tbh"]]
+#labels=["User", "Messages", "Role"]
 
 #Centered
 #rows=[["Apple", 5, 70]]
 #labels=["Name", "Duckiness"]
 #centered=True
-
+rows=[
+                    ["Apple", 5, 70, "Red"],
+                    ["Banana", 3, 5, "Yellow"],
+                    ["Cherry", 7, 31, "Red"],
+                    ["Pear", 6, 50, "Green"]
+                ]
+labels=["Fruit", "Tastiness", "Sweetness", "Colour"]
 
 table = make_table(rows,labels)
 print (table)
